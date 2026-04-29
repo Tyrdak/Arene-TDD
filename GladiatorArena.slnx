@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GladiatorArena.Tests/GladiatorArena.Tests.csproj" />
+  <Project Path="GladiatorArena/GladiatorArena.csproj" />
+</Solution>
