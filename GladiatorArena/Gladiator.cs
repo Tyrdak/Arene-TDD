@@ -4,6 +4,7 @@ public class Gladiator(string name, int health, int strength, int armor)
 {
     private const int MinDiceFace = 1;
     private const int MaxDiceFace = 6;
+    private const int CriticalRoll = MaxDiceFace;
 
     public string Name { get; } = name;
     public int Health { get; private set; } = health;
@@ -23,10 +24,10 @@ public class Gladiator(string name, int health, int strength, int armor)
 
     private int ComputeDamage(int score, Gladiator opponent)
     {
-        var raw = score + Strength;
-        if (score == MaxDiceFace)
-            raw *= 2;
-        return Math.Max(0, raw - opponent.Armor);
+        var hitPower = score + Strength;
+        if (score == CriticalRoll)
+            hitPower *= 2;
+        return Math.Max(0, hitPower - opponent.Armor);
     }
 
     private void EnsureDistinctOpponent(Gladiator opponent)
