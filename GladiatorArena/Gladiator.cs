@@ -22,7 +22,12 @@ public class Gladiator(string name, int health, int strength, int armor)
     }
 
     private int ComputeDamage(int score, Gladiator opponent)
-        => Math.Max(0, score + Strength - opponent.Armor);
+    {
+        var raw = score + Strength;
+        if (score == MaxDiceFace)
+            raw *= 2;
+        return Math.Max(0, raw - opponent.Armor);
+    }
 
     private void EnsureDistinctOpponent(Gladiator opponent)
     {
