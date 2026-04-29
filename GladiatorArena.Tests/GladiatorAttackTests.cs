@@ -42,4 +42,19 @@ public class GladiatorAttackTests
         // 3 (dice) + 10 (strength) - 4 (armor) = 9
         Assert.Equal(91, defender.Health);
     }
+
+    [Fact]
+    public void Attack_TwoConsecutiveStandardHits_DamageStacks()
+    {
+        var attacker = new Gladiator("Spartacus", health: 100, strength: 10, armor: 2);
+        var defender = new Gladiator("Crixus", health: 100, strength: 8, armor: 4);
+        var dice = new SequenceDice(3, 5);
+
+        attacker.Attack(defender, dice);
+        attacker.Attack(defender, dice);
+
+        // 1st: 3 + 10 - 4 =  9 -> 91
+        // 2nd: 5 + 10 - 4 = 11 -> 80
+        Assert.Equal(80, defender.Health);
+    }
 }
