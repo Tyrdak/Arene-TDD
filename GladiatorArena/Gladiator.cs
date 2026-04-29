@@ -19,7 +19,7 @@ public class Gladiator(string name, int health, int strength, int armor)
         EnsureLegalDiceRoll(score);
 
         var damage = ComputeDamage(score, opponent);
-        opponent.Health -= damage;
+        opponent.Health = Math.Max(0, opponent.Health - damage);
     }
 
     private int ComputeDamage(int score, Gladiator opponent)
