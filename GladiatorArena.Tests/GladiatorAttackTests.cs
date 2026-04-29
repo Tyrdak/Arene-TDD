@@ -18,4 +18,15 @@ public class GladiatorAttackTests
 
         Assert.Throws<ArgumentOutOfRangeException>(act);
     }
+
+    [Fact]
+    public void Attack_ThrowsWhenGladiatorTargetsItself()
+    {
+        var spartacus = new Gladiator("Spartacus", health: 100, strength: 10, armor: 2);
+        var dice = new FixedDice(3);
+
+        var act = () => spartacus.Attack(spartacus, dice);
+
+        Assert.Throws<InvalidOperationException>(act);
+    }
 }
