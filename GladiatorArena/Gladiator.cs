@@ -12,11 +12,16 @@ public class Gladiator(string name, int health, int strength, int armor)
 
     public void Attack(Gladiator opponent, IDice dice)
     {
-        if (ReferenceEquals(this, opponent))
-            throw new InvalidOperationException("A gladiator cannot attack itself.");
+        EnsureDistinctOpponent(opponent);
 
         var score = dice.Roll();
         EnsureLegalDiceRoll(score);
+    }
+
+    private void EnsureDistinctOpponent(Gladiator opponent)
+    {
+        if (ReferenceEquals(this, opponent))
+            throw new InvalidOperationException("A gladiator cannot attack itself.");
     }
 
     private static void EnsureLegalDiceRoll(int score)
