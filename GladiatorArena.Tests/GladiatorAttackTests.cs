@@ -44,6 +44,19 @@ public class GladiatorAttackTests
     }
 
     [Fact]
+    public void Attack_ArmorOutweighsForce_DealsNoDamage()
+    {
+        var attacker = new Gladiator("Spartacus", health: 100, strength: 2, armor: 1);
+        var tank = new Gladiator("Murmillo", health: 100, strength: 5, armor: 50);
+        var dice = new FixedDice(3);
+
+        attacker.Attack(tank, dice);
+
+        // 3 + 2 - 50 = -45 -> clamp to 0
+        Assert.Equal(100, tank.Health);
+    }
+
+    [Fact]
     public void Attack_TwoConsecutiveStandardHits_DamageStacks()
     {
         var attacker = new Gladiator("Spartacus", health: 100, strength: 10, armor: 2);
