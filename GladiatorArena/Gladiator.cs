@@ -18,17 +18,20 @@ public class Gladiator(string name, int health, int strength, int armor)
         var score = dice.Roll();
         EnsureLegalDiceRoll(score);
 
-        var damage = ComputeDamage(score, opponent);
-        opponent.Health = Math.Max(0, opponent.Health - damage);
+        var damage = ComputeDamage(score, opponent.Armor);
+        opponent.TakeDamage(damage);
     }
 
-    private int ComputeDamage(int score, Gladiator opponent)
+    private int ComputeDamage(int score, int opponentArmor)
     {
         var hitPower = score + Strength;
         if (score == CriticalRoll)
             hitPower *= 2;
-        return Math.Max(0, hitPower - opponent.Armor);
+        return Math.Max(0, hitPower - opponentArmor);
     }
+
+    private void TakeDamage(int damage)
+        => Health = Math.Max(0, Health - damage);
 
     private void EnsureDistinctOpponent(Gladiator opponent)
     {
