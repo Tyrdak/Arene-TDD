@@ -16,6 +16,9 @@ public class Gladiator(string name, int health, int strength, int armor)
 
         var score = dice.Roll();
         EnsureLegalDiceRoll(score);
+
+        var damage = score + Strength - opponent.Armor;
+        opponent.Health -= damage;
     }
 
     private void EnsureDistinctOpponent(Gladiator opponent)
