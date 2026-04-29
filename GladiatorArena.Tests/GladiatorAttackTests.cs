@@ -29,4 +29,17 @@ public class GladiatorAttackTests
 
         Assert.Throws<InvalidOperationException>(act);
     }
+
+    [Fact]
+    public void Attack_StandardHit_DefenderLosesDicePlusStrengthMinusArmor()
+    {
+        var attacker = new Gladiator("Spartacus", health: 100, strength: 10, armor: 2);
+        var defender = new Gladiator("Crixus", health: 100, strength: 8, armor: 4);
+        var dice = new FixedDice(3);
+
+        attacker.Attack(defender, dice);
+
+        // 3 (dice) + 10 (strength) - 4 (armor) = 9
+        Assert.Equal(91, defender.Health);
+    }
 }
