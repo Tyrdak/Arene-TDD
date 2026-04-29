@@ -70,6 +70,18 @@ public class GladiatorAttackTests
     }
 
     [Fact]
+    public void Attack_DamageExceedsHealth_HealthClampsAtZero()
+    {
+        var attacker = new Gladiator("Spartacus", health: 100, strength: 50, armor: 2);
+        var defender = new Gladiator("Crixus", health: 5, strength: 8, armor: 0);
+        var dice = new FixedDice(6);
+
+        attacker.Attack(defender, dice);
+
+        Assert.Equal(0, defender.Health);
+    }
+
+    [Fact]
     public void Attack_TwoConsecutiveStandardHits_DamageStacks()
     {
         var attacker = new Gladiator("Spartacus", health: 100, strength: 10, armor: 2);
